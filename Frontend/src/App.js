@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Signup from './components/Signup';
+import TicketManagementForm from './Vendor/TicketManagementForm';
+
 import Home from './Customer/Home';
 import History from './Customer/History';
 import Bookings from './Customer/Bookings';
@@ -39,7 +41,8 @@ function App() {
           <Route path="/Profile" element={<Profile />} />
 
           <Route path="/Vendor" element={<VendorHome />} />
-          <Route path="/vendor" element={<VendorHome />} />
+          <Route path="/TicketManagement" element={<TicketManagementForm />} />
+          <Route path="/Vendor" element={<VendorHome />} />
           <Route path="/Status" element={<Status />} />
           <Route path="/VendorHistory" element={<VendorHistory />} />
           <Route path="/VendorProfile" element={<VendorProfile />} />
