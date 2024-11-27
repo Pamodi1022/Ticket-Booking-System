@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './Vendornavbar.css';
 import logo from './logo1.png';  // Make sure the path is correct
 
 export default function VendorNavbar() {

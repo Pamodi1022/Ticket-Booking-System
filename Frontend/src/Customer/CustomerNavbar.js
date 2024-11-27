@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './CustomerNavbar.css';
 import logo from './logo.png';  // Make sure the path is correct
 
 export default function Navbar() {
