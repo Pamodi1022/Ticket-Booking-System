@@ -1,5 +1,5 @@
 import React from 'react'
-import CustomerNavbar from '../components/CustomerNavbar'
+import CustomerNavbar from './CustomerNavbar'
 
 export default function Bookings() {
   return (
