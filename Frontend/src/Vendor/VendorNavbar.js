@@ -21,7 +21,6 @@ export default function VendorNavbar() {
       <ul className={menuActive ? 'active' : ''}>
         <li><Link to="/Vendor" onClick={toggleMenu}>Home</Link></li>
         <li><Link to="/Status" onClick={toggleMenu}>Status</Link></li>
-        <li><Link to="/VendorHistory" onClick={toggleMenu}>History</Link></li>
         <li><Link to="/VendorProfile" onClick={toggleMenu}>Profile</Link></li>
       </ul>
     </div>

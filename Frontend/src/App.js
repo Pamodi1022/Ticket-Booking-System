@@ -7,13 +7,11 @@ import TicketManagementForm from './Vendor/TicketManagementForm';
 
 import Home from './Customer/Home';
 import History from './Customer/History';
-import Bookings from './Customer/Bookings';
 import Profile from './Customer/Profile';
 import CustomerNavbar from './Customer/CustomerNavbar';
 
 import VendorProfile from './Vendor/VendorProfile';
 import Status from './Vendor/Status';
-import VendorHistory from './Vendor/VendorHistory';
 import VendorHome from './Vendor/VendorHome';
 import VendorNavbar from './Vendor/VendorNavbar';
 
@@ -36,7 +34,6 @@ function App() {
           <Route path="/" element={<Signup onLogin={handleLogin} />} />
           <Route path="/" element={<Signup />} />
           <Route path="/Customer" element={<Home />} />
-          <Route path="/Bookings" element={<Bookings />} />
           <Route path="/History" element={<History />} />
           <Route path="/Profile" element={<Profile />} />
 
@@ -44,7 +41,6 @@ function App() {
           <Route path="/TicketManagement" element={<TicketManagementForm />} />
           <Route path="/Vendor" element={<VendorHome />} />
           <Route path="/Status" element={<Status />} />
-          <Route path="/VendorHistory" element={<VendorHistory />} />
           <Route path="/VendorProfile" element={<VendorProfile />} />
         </Routes>
       </div>

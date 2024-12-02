@@ -20,7 +20,6 @@ export default function Navbar() {
       </button>
       <ul className={menuActive ? 'active' : ''}>
         <li><Link to="/Customer" onClick={toggleMenu}>Home</Link></li>
-        <li><Link to="/Bookings" onClick={toggleMenu}>Bookings</Link></li>
         <li><Link to="/History" onClick={toggleMenu}>History</Link></li>
         <li><Link to="/Profile" onClick={toggleMenu}>Profile</Link></li>
       </ul>
