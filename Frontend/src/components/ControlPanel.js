@@ -22,7 +22,7 @@ const ControlPanel = () => {
       .post("http://localhost:8080/api/tickets/Reset")
       .then(() => {
         // Navigate to ConfigurationForm after reset
-        navigate("/TicketDisplay"); // This will navigate to the root route (ConfigurationForm)
+        navigate("/"); // This will navigate to the root route (ConfigurationForm)
       })
       .catch((error) => {
         console.error("Error resetting simulation:", error);
