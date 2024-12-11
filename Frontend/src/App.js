@@ -1,18 +1,23 @@
-import React from "react";
-import TicketsDisplay from "./components/TicketsDisplay";
-import LogDisplay from "./components/LogDisplay";
-import ControlPanel from "./components/ControlPanel";
-import ConfigForm from "./components/ConfigForm";
+import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+import ConfigForm from './components/ConfigForm.js';
+import TicketsDisplay from './components/TicketsDisplay';
+import LogDisplay from './components/LogDisplay';
+
 
 function App() {
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
-      <h1>Ticketing System</h1>
-      <TicketsDisplay />
-      <LogDisplay />
-      <ControlPanel />
-      <ConfigForm />
-    </div>
+    <Router>
+      <div>
+        <Routes>
+          <Route path="/" element={<ConfigForm />} />
+          <Route path="/TicketDisplay" element={<TicketsDisplay />} />
+          <Route path="/LogDisplay" element={<LogDisplay />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

@@ -2,6 +2,7 @@ package com.example.demo.ticketingsystem.controller;
 
 import com.example.demo.ticketingsystem.dto.TicketConfigDTO;
 import com.example.demo.ticketingsystem.service.TicketService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +19,7 @@ public class TicketController {
 
 
     @PostMapping("/submit")
-    public String saveConfiguration(@RequestBody TicketConfigDTO configuration) {
-        // Call the service method to save configuration to JSON file
+    public String saveConfiguration(@Valid @RequestBody TicketConfigDTO configuration) {
         ticketService.saveConfiguration(configuration);
         return "Configuration saved successfully!";
     }
@@ -35,10 +35,25 @@ public class TicketController {
         ticketService.stopSimulation();
     }
 
+    @PostMapping("/Reset")
+    public void reset() {
+        ticketService.reset();
+    }
+
+    @PostMapping("/loadConfig")
+    public void loadPreviousConfig(){
+        ticketService.loadPreviousConfig();
+    }
+
 
     @GetMapping("/available")
     public int getAvailableTickets() {
         return ticketService.getAvailableTickets();
+    }
+
+    @GetMapping("/total")
+    public int getTotalTickets() {
+        return ticketService.getTotalTickets();
     }
 
     @GetMapping("/logs")

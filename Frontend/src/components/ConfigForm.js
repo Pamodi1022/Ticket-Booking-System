@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import "../styles.css";
 
 const ConfigForm = () => {
   const [config, setConfig] = useState({
@@ -9,67 +11,136 @@ const ConfigForm = () => {
     maxCapacity: "",
   });
 
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate(); // Initialize navigate function
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // Update state
     setConfig({ ...config, [name]: value });
+
+    // Validate input
+    if (value <= 0) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: "Value must be greater than 0",
+      }));
+    } else {
+      setErrors((prevErrors) => {
+        const { [name]: removed, ...remainingErrors } = prevErrors;
+        return remainingErrors;
+      });
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Check for errors before submitting
+    const validationErrors = {};
+    Object.keys(config).forEach((key) => {
+      if (config[key] <= 0) {
+        validationErrors[key] = "Value must be greater than 0";
+      }
+    });
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    // Submit the configuration
     axios
       .post("http://localhost:8080/api/tickets/submit", config)
-      .then(() => alert("Configuration submitted successfully!"))
+      .then(() => {
+        alert("Configuration submitted successfully!");
+
+        // Clear input fields by resetting the state
+        setConfig({
+          totalTickets: "",
+          ticketReleaseRate: "",
+          ticketRetrievalRate: "",
+          maxCapacity: "",
+        });
+
+        // Optionally clear errors
+        setErrors({});
+
+        // Navigate to the TicketDisplay page after successful submission
+        navigate("/TicketDisplay"); // This will navigate to the /TicketDisplay route
+      })
       .catch((error) => console.error("Error submitting configuration:", error));
   };
 
   return (
-    <div>
-      <h2>Configuration Form</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Total Tickets: </label>
-          <input
+    <div className="config-form-background">
+    <div className="config-form-container">
+        <h2 className="config-form-title">Configuration Form</h2>
+        <form onSubmit={handleSubmit}>
+        <div className="config-form-group">
+            <label>Total Tickets: </label>
+            <input
             type="number"
             name="totalTickets"
             value={config.totalTickets}
             onChange={handleChange}
+            className="config-input-field"
             required
-          />
+            />
+            {errors.totalTickets && (
+            <span className="config-error-message">{errors.totalTickets}</span>
+            )}
         </div>
-        <div>
-          <label>Ticket Release Rate: </label>
-          <input
+        <div className="config-form-group">
+            <label>Ticket Release Rate: </label>
+            <input
             type="number"
             name="ticketReleaseRate"
             value={config.ticketReleaseRate}
             onChange={handleChange}
+            className="config-input-field"
             required
-          />
+            />
+            {errors.ticketReleaseRate && (
+            <span className="config-error-message">{errors.ticketReleaseRate}</span>
+            )}
         </div>
-        <div>
-          <label>Ticket Retrieval Rate: </label>
-          <input
+        <div className="config-form-group">
+            <label>Ticket Retrieval Rate: </label>
+            <input
             type="number"
             name="ticketRetrievalRate"
             value={config.ticketRetrievalRate}
             onChange={handleChange}
+            className="config-input-field"
             required
-          />
+            />
+            {errors.ticketRetrievalRate && (
+            <span className="config-error-message">{errors.ticketRetrievalRate}</span>
+            )}
         </div>
-        <div>
-          <label>Max Capacity: </label>
-          <input
+        <div className="config-form-group">
+            <label>Max Capacity: </label>
+            <input
             type="number"
             name="maxCapacity"
             value={config.maxCapacity}
             onChange={handleChange}
+            className="config-input-field"
             required
-          />
+            />
+            {errors.maxCapacity && (
+            <span className="config-error-message">{errors.maxCapacity}</span>
+            )}
         </div>
-        <button type="submit">Submit Configuration</button>
-      </form>
+        <button type="submit" className="config-submit-btn">
+            Submit Configuration
+        </button>
+        </form>
     </div>
-  );
+    </div>
+    );
 };
 
-export default ConfigForm;
+export default ConfigForm;

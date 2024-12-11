@@ -1,6 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import UserNavbar from './UserNavbar';
 
+// Status Component
+const Status = () => {
+  return (
+    <div>
+      <UserNavbar />
+      <LogDisplay />
+    </div>
+  );
+};
+
+// LogDisplay Component
 const LogDisplay = () => {
   const [logs, setLogs] = useState([]);
 
@@ -29,4 +41,4 @@ const LogDisplay = () => {
   );
 };
 
-export default LogDisplay;
+export default Status;

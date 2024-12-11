@@ -2,15 +2,20 @@ package com.example.demo.ticketingsystem.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Min;
 
 @Entity
 public class TicketConfig {
 
     @Id
     private Long id;
+    @Min(value = 1, message = "Total tickets must be greater than 0")
     private int totalTickets;
+    @Min(value = 1, message = "Ticket release rate must be greater than 0")
     private int ticketReleaseRate;
+    @Min(value = 1, message = "Ticket retrieval rate must be greater than 0")
     private int ticketRetrievalRate;
+    @Min(value = 1, message = "Max capacity must be greater than 0")
     private int maxCapacity;
 
     public TicketConfig() {}
