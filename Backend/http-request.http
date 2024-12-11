@@ -1,0 +1,9 @@
+###
+POST http://localhost:8080/api/tickets/buy/1
+Content-Type: application/json
+
+<> 2024-12-10T125301.500.json
+
+
+
+###
