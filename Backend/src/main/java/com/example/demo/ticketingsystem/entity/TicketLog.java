@@ -8,6 +8,7 @@ public class TicketLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String message;
     private String action;
     private Long ticketId;
     private String actorId; // Vendor or Customer ID
@@ -16,6 +17,14 @@ public class TicketLog {
     @PrePersist
     public void setTimestamp() {
         this.timestamp = LocalDateTime.now();
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public int getId() {

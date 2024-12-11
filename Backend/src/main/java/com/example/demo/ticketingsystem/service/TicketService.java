@@ -381,6 +381,7 @@ public class TicketService {
         System.out.println(logMessage);
     }
 
+
     // Log action when a vendor adds a ticket
     private void logTicketAction(String action) {
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
