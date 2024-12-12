@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import UserNavbar from './UserNavbar';
+import '../Status.css'; // Import the CSS file
 
 // Status Component
 const Status = () => {
@@ -30,7 +31,7 @@ const LogDisplay = () => {
   }, []);
 
   return (
-    <div style={{ marginBottom: "20px" }}>
+    <div className="log-display">
       <h2>Log Display</h2>
       <ul>
         {logs.map((log, index) => (

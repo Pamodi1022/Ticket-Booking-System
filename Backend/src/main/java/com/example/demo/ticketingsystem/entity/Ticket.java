@@ -11,15 +11,8 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String eventName;
-    private double price;
+    private int price;
     private boolean available;
-    private LocalDateTime lastUpdated;
-
-    @PrePersist
-    @PreUpdate
-    public void setLastUpdated() {
-        this.lastUpdated = LocalDateTime.now();
-    }
 
     public int getId() {
         return Math.toIntExact(id);
@@ -41,7 +34,7 @@ public class Ticket {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -53,11 +46,4 @@ public class Ticket {
         this.available = available;
     }
 
-    public LocalDateTime getLastUpdated() {
-        return lastUpdated;
-    }
-
-    public void setLastUpdated(LocalDateTime lastUpdated) {
-        this.lastUpdated = lastUpdated;
-    }
 }

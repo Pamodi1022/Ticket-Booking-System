@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const ControlPanel = () => {
-  const navigate = useNavigate(); // Initialize navigate function
+  const navigate = useNavigate();
 
   const startSimulation = () => {
     axios.post("http://localhost:8080/api/tickets/start").catch((error) => {
@@ -18,11 +18,9 @@ const ControlPanel = () => {
   };
 
   const reset = () => {
-    axios
-      .post("http://localhost:8080/api/tickets/Reset")
+    axios.post("http://localhost:8080/api/tickets/reset")
       .then(() => {
-        // Navigate to ConfigurationForm after reset
-        navigate("/"); // This will navigate to the root route (ConfigurationForm)
+        navigate("/");
       })
       .catch((error) => {
         console.error("Error resetting simulation:", error);
@@ -30,15 +28,20 @@ const ControlPanel = () => {
   };
 
   return (
-    <div style={{ marginBottom: "20px" }}>
-      <h2>Control Panel</h2>
-      <button onClick={startSimulation} style={{ marginRight: "10px" }}>
-        Start
+    <div className="control-panel">
+      <button className="reset-button" onClick={reset}>
+        Reset
       </button>
-      <button onClick={stopSimulation}>Stop</button>
-      <button onClick={reset}>Reset</button>
+      <div className="action-buttons">
+        <button onClick={startSimulation} className="start-button">
+          Start
+        </button>
+        <button onClick={stopSimulation} className="stop-button">
+          Stop
+        </button>
+      </div>
     </div>
   );
 };
 
-export default ControlPanel;
+export default ControlPanel; // Export as default

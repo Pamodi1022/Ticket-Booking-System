@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import UserNavbar from './UserNavbar';
-import ControlPanel from "./ControlPanel";
+import React, { useEffect, useState } from "react"; // Import React hooks
+import axios from "axios"; // Import axios for HTTP requests
+import ControlPanel from "./ControlPanel"; // Import ControlPanel component (check the path)
+import UserNavbar from "./UserNavbar"; // Import UserNavbar component (check the path)
+import "../Ticketstyles.css";
+import Event from './Event.png';
 
 const TicketsDisplay = () => {
-  const [availableTickets, setAvailableTickets] = useState(0);
-  const [totalTickets, setTotalTickets] = useState(0);
+const [availableTickets, setAvailableTickets] = useState(0);
+const [totalTickets, setTotalTickets] = useState(0);
 
   // Fetch available tickets
   useEffect(() => {
@@ -37,12 +39,16 @@ const TicketsDisplay = () => {
 
   return (
     <div>
-      <UserNavbar />
-      <ControlPanel />
-      <div style={{ marginBottom: "20px" }}>
-        <h2>Tickets Display</h2>
-        <p>Available Tickets: {availableTickets}</p>
-        <p>Total Tickets: {totalTickets}</p>
+      <UserNavbar /> {/* Navbar Component */}
+      <div className="tickets-display">
+        <div className="image-container">
+          <img src={Event} alt="Event" className="event-image" />
+          <div className="ticket-info">
+            <p>Available Tickets: {availableTickets}</p>
+            <p>Total Tickets: {totalTickets}</p>
+          </div>
+          <ControlPanel /> {/* Control Panel Component */}
+        </div>
       </div>
     </div>
   );

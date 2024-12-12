@@ -35,16 +35,10 @@ public class TicketController {
         ticketService.stopSimulation();
     }
 
-    @PostMapping("/Reset")
+    @PostMapping("/reset")
     public void reset() {
         ticketService.reset();
     }
-
-    @PostMapping("/loadConfig")
-    public void loadPreviousConfig(){
-        ticketService.loadPreviousConfig();
-    }
-
 
     @GetMapping("/available")
     public int getAvailableTickets() {
