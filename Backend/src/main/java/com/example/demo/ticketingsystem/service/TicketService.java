@@ -15,7 +15,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class TicketService {
-
     private final TicketRepository ticketRepository;
     private final TicketConfigRepository ticketConfigRepository;
     private final ObjectMapper objectMapper = new ObjectMapper();

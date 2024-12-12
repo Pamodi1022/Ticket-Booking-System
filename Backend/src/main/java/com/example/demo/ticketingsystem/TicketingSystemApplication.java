@@ -11,11 +11,11 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 @EnableWebSocket
 @EnableJpaRepositories(basePackages = "com.example.demo.ticketingsystem.repository")
 @EnableConfigurationProperties(TicketConfigDTO.class)
-public class DemoApplication {
+public class TicketingSystemApplication {
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(TicketingSystemApplication.class, args);
 	}
 
 }
