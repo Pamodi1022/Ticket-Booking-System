@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import UserNavbar from './UserNavbar';
-import '../Status.css'; // Import the CSS file
+import '../LogDisplay.css'; // Import the CSS file
 
 // Status Component
 const Status = () => {

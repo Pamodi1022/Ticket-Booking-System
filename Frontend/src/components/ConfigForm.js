@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
-import "../styles.css";
+import "../ConfigFormstyles.css";
 
 const ConfigForm = () => {
   const [config, setConfig] = useState({
@@ -79,7 +79,7 @@ const ConfigForm = () => {
         <h2 className="config-form-title">Configuration Form</h2>
         <form onSubmit={handleSubmit}>
         <div className="config-form-group">
-            <label>Total Tickets: </label>
+            <label><b>Total Tickets: </b></label>
             <input
             type="number"
             name="totalTickets"
@@ -93,7 +93,7 @@ const ConfigForm = () => {
             )}
         </div>
         <div className="config-form-group">
-            <label>Ticket Release Rate: </label>
+            <label><b>Ticket Release Rate: </b></label>
             <input
             type="number"
             name="ticketReleaseRate"
@@ -107,7 +107,7 @@ const ConfigForm = () => {
             )}
         </div>
         <div className="config-form-group">
-            <label>Ticket Retrieval Rate: </label>
+            <label><b>Ticket Retrieval Rate: </b></label>
             <input
             type="number"
             name="ticketRetrievalRate"
@@ -121,7 +121,7 @@ const ConfigForm = () => {
             )}
         </div>
         <div className="config-form-group">
-            <label>Max Capacity: </label>
+            <label><b>Max Capacity: </b></label>
             <input
             type="number"
             name="maxCapacity"
@@ -135,7 +135,7 @@ const ConfigForm = () => {
             )}
         </div>
         <button type="submit" className="config-submit-btn">
-            Submit Configuration
+            <b>Submit Configuration</b>
         </button>
         </form>
     </div>
