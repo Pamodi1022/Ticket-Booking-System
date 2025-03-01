@@ -60,6 +60,11 @@ public class TicketController {
         return ticketService.getSoldTickets();
     }
 
+    @GetMapping("/initial")
+    public int getInitialTotalTickets() {
+        return ticketService.getInitialTotalTickets();
+    }
+
     @GetMapping("/logs")
     public List<String> getLogs() {
         return ticketService.getTicketLogs();
