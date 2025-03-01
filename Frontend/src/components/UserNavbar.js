@@ -22,7 +22,7 @@ export default function UserNavbar() {
       </button>
       <ul className={menuActive ? 'active' : ''}>
         <li><Link to="/" onClick={toggleMenu}>Home</Link></li>
-        <li><Link to="/TicketDisplay" onClick={toggleMenu}>Tickets</Link></li>
+        <li><Link to="/ViewDetail" onClick={toggleMenu}>Dashboard</Link></li>
         <li><Link to="/LogDisplay" onClick={toggleMenu}>Ticket Log</Link></li>
         <li><Link to="/config" onClick={toggleMenu}>Configuration</Link></li>
       </ul>
