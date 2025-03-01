@@ -2,184 +2,183 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../styles/ViewStyles.css";
-import UserNavbar from "./UserNavbar";
 import Event from '../assets/event1.jpeg';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const ViewDetail = () => {
   const [availableTickets, setAvailableTickets] = useState(0);
   const [totalTickets, setTotalTickets] = useState(0);
   const [soldTickets, setSoldTickets] = useState(0);
   const [maxCapacity, setMaxCapacity] = useState(0);
+  const [initialTotalTickets, setinitialTotalTickets] = useState(0);
   const [isSimulationRunning, setIsSimulationRunning] = useState(false);
+  const [salesData, setSalesData] = useState([]);
+  const [systemStatus, setSystemStatus] = useState(0);
   const navigate = useNavigate();
 
-  // Fetch available tickets
+  const api = axios.create({
+    baseURL: "http://localhost:8080/api/tickets",
+    timeout: 5000
+  });
+
+  const fetchAllTicketData = async () => {
+    try {
+      const [availableRes, totalRes, soldRes, initialRes, maxRes] = await Promise.all([
+        api.get("/available"),
+        api.get("/total"),
+        api.get("/sold"),
+        api.get("/initial"),
+        api.get("/max")
+      ]);
+
+      const available = availableRes.data;
+      const total = totalRes.data;
+      const sold = soldRes.data;
+      const initial = initialRes.data;
+      const max = maxRes.data;
+
+      setAvailableTickets(available);
+      setTotalTickets(total);
+      setSoldTickets(sold);
+      setMaxCapacity(max);
+      setinitialTotalTickets(initial);
+
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      
+      setSalesData(prevData => {
+        const newData = [...prevData, { 
+          time: timeStr, 
+          sold: sold, 
+          available: available, 
+          total: total,
+          initial: initial
+        }];
+        
+        return newData.length > 8 ? newData.slice(-8) : newData;
+      });
+    } catch (error) {
+      console.error("Error fetching ticket data:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchAvailableTickets = () => {
-      axios
-        .get("http://localhost:8080/api/tickets/available")
-        .then((response) => {
-          setAvailableTickets(response.data);
-          // Calculate sold tickets based on total - available
-          if (totalTickets > 0) {
-            setSoldTickets(totalTickets - response.data);
-          }
-        })
-        .catch((error) => console.error("Error fetching available tickets:", error));
-    };
-
-    fetchAvailableTickets();
-    const interval = setInterval(fetchAvailableTickets, 1000); // Refresh every second
-    return () => clearInterval(interval); // Cleanup interval on component unmount
-  }, [totalTickets]); // Added totalTickets as dependency
-
-  // Fetch total tickets
-  useEffect(() => {
-    const fetchTotalTickets = () => {
-      axios
-        .get("http://localhost:8080/api/tickets/total")
-        .then((response) => {
-          setTotalTickets(response.data);
-          // Reset sold tickets if total tickets changes to zero
-          if (response.data === 0) {
-            setSoldTickets(0);
-          }
-        })
-        .catch((error) => console.error("Error fetching total tickets:", error));
-    };
-
-    fetchTotalTickets();
-    const interval = setInterval(fetchTotalTickets, 1000); // Refresh every second
-    return () => clearInterval(interval); // Cleanup interval on component unmount
+    fetchAllTicketData();
+    const interval = setInterval(fetchAllTicketData, 1000);
+    return () => clearInterval(interval);
   }, []);
 
-  // Fetch max capacity
-useEffect(() => {
-    const fetchMaxCapacity = () => {
-      axios
-        .get("http://localhost:8080/api/tickets/max")
-        .then((response) => {
-          setMaxCapacity(response.data);
-        })
-        .catch((error) => console.error("Error fetching max capacity:", error));
+  useEffect(() => {
+    const checkSimulationStatus = async () => {
+      try {
+        const response = await api.get("/simulation-status");
+        setIsSimulationRunning(response.data.running);
+      } catch (error) {
+        const prevSold = soldTickets;
+        setTimeout(() => {
+          if (soldTickets > prevSold) {
+            setIsSimulationRunning(true);
+          }
+        }, 2000);
+      }
     };
-  
-    fetchMaxCapacity();
-  }, []); // Runs only once when the component mounts
-  
 
-  // Control panel functions
-  const startSimulation = () => {
-    axios.post("http://localhost:8080/api/tickets/start")
-      .then(() => {
-        setIsSimulationRunning(true);
-        // Reset sold tickets counter when simulation starts
-        setSoldTickets(0);
-      })
-      .catch((error) => {
-        console.error("Error starting simulation:", error);
-      });
+    checkSimulationStatus();
+    const interval = setInterval(checkSimulationStatus, 5000);
+    return () => clearInterval(interval);
+  }, [soldTickets]);
+
+  const startSimulation = async () => {
+    try {
+      await api.post("/start");
+      setIsSimulationRunning(true);
+      setSalesData([]);
+      setSystemStatus(0);
+    } catch (error) {
+      console.error("Error starting simulation:", error);
+    }
   };
 
-  const stopSimulation = () => {
-    axios.post("http://localhost:8080/api/tickets/stop")
-      .then(() => {
-        setIsSimulationRunning(false);
-      })
-      .catch((error) => {
-        console.error("Error stopping simulation:", error);
-      });
+  const stopSimulation = async () => {
+    try {
+      await api.post("/stop");
+      setIsSimulationRunning(false);
+    } catch (error) {
+      console.error("Error stopping simulation:", error);
+    }
   };
 
-  const reset = () => {
-    axios.post("http://localhost:8080/api/tickets/reset")
-      .then(() => {
-        setSoldTickets(0); // Reset sold tickets on reset
-        setIsSimulationRunning(false);
-        navigate("/");
-      })
-      .catch((error) => {
-        console.error("Error resetting simulation:", error);
-      });
+  const reset = async () => {
+    try {
+      await api.post("/reset");
+      setIsSimulationRunning(false);
+      setSalesData([]);
+      setSystemStatus(0);
+      setinitialTotalTickets(0);
+      navigate("/");
+    } catch (error) {
+      console.error("Error resetting simulation:", error);
+    }
   };
 
-  // Calculate percentage of tickets available (out of total)
-  const percentageAvailable = totalTickets > 0 ? (availableTickets / maxCapacity) * 100 : 0;
-  
-  // Calculate percentage of sold tickets (out of total)
-  const percentageSold = totalTickets > 0 ? (soldTickets / totalTickets) * 100 : 0;
+  const percentageAvailable = Math.min((availableTickets / maxCapacity) * 100, 100);
+  const percentageTotal = Math.min((totalTickets / initialTotalTickets) * 100, 100);
+  const percentageSold = Math.min((soldTickets / initialTotalTickets) * 100, 100);
+
+  const radius = 60;
+  const circumference = 2 * Math.PI * radius;
+  const dashoffset = circumference * (1 - systemStatus / 100);
+  const statusColor = systemStatus >= 80 ? "#4CAF50" : systemStatus >= 50 ? "#FFC107" : "#F44336";
   
   return (
-      <div>
-        <UserNavbar />
-        <div className="tickets-container">
-          <div className="event-banner" style={{ backgroundImage: `url(${Event})` }}>
-            <h1>Event Ticket Dashboard</h1>
-          </div>
-          
-          <div className="tickets-display">
-            <div className="ticket-stats">
-              <div className="ticket-card">
-                <h2>Available Tickets</h2>
-                <div className="ticket-number">{availableTickets}</div>
-                <div className="progress-bar">
-                  <div 
-                    className="progress" 
-                    style={{ width: `${percentageAvailable}%`, backgroundColor: "#3498db" }}
-                  ></div>
-                </div>
-                <div className="progress-label">{percentageAvailable.toFixed(1)}% of total</div>
+    <div>
+      <div className="tickets-container">
+        <div className="event-banner" style={{ backgroundImage: `url(${Event})` }}>
+          <h1>Event Ticket Dashboard</h1>
+        </div>
+        
+        <div className="tickets-display">
+          <div className="ticket-stats">
+            <div className="ticket-card">
+              <h2>Available Tickets</h2>
+              <div className="ticket-number">{availableTickets}</div>
+              <div className="progress-bar">
+                <div 
+                  className="progress" 
+                  style={{ width: `${Math.min(percentageAvailable, 100)}%`, backgroundColor: "#3498db" }}
+                ></div>
               </div>
-              
-              <div className="ticket-card">
-                <h2>Total Tickets</h2>
-                <div className="ticket-number">{soldTickets}</div>
-                <div className="progress-bar">
-                  <div 
-                    className="progress" 
-                    style={{ width: `${percentageSold}%`, backgroundColor: "#e74c3c" }}
-                  ></div>
-                </div>
-                <div className="progress-label">{percentageSold.toFixed(1)}% of total</div>
-              </div>
-              
-              {/* <div className="ticket-card">
-                <h2>Sold Tickets</h2>
-                <div className="ticket-number">{soldTickets}</div>
-                <div className="progress-bar">
-                  <div 
-                    className="progress" 
-                    style={{ width: `${percentageSold}%`, backgroundColor: "#e74c3c" }}
-                  ></div>
-                </div>
-                <div className="progress-label">{percentageSold.toFixed(1)}% of total</div>
-              </div> */}
+              <div className="progress-label">{percentageAvailable.toFixed(1)}% of capacity</div>
             </div>
             
-            <div className="control-panel">
-              <h2>Simulation Controls</h2>
-              <div className="simulation-status">
-                Status: {isSimulationRunning ? 
-                  <span className="status running">Running</span> : 
-                  <span className="status stopped">Stopped</span>
-                }
+            <div className="ticket-card">
+              <h2>Total Tickets</h2>
+              <div className="ticket-number">{totalTickets}</div>
+              <div className="progress-bar">
+                <div 
+                  className="progress" 
+                  style={{ width: `${Math.min(percentageTotal, 100)}%`, backgroundColor: "#e74c3c" }}
+                ></div>
               </div>
-              <div className="control-buttons">
-                <button className="control-button reset" onClick={reset}>
-                  Reset
-                </button>
-                <button className="control-button start" onClick={startSimulation} disabled={isSimulationRunning}>
-                  Start
-                </button>
-                <button className="control-button stop" onClick={stopSimulation} disabled={!isSimulationRunning}>
-                  Stop
-                </button>
+              <div className="progress-label">{percentageTotal.toFixed(1)}% of total</div>
+            </div>
+            
+            <div className="ticket-card">
+              <h2>Sold Tickets</h2>
+              <div className="ticket-number">{soldTickets}</div>
+              <div className="progress-bar">
+                <div 
+                  className="progress" 
+                  style={{ width: `${Math.min(percentageSold, 100)}%`, backgroundColor: "#e74c3c" }}
+                ></div>
               </div>
+              <div className="progress-label">{percentageSold.toFixed(1)}% of sold</div>
             </div>
           </div>
         </div>
       </div>
-    );
+    </div>
+  );
 };
 
 export default ViewDetail;
