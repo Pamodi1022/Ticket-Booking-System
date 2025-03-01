@@ -1,6 +1,25 @@
-/*Navigation bar Styles*/
-.content{
-    margin-top: 90px;
+/* App.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+}
+
+/* Global styles for navbar */
+.navbar {
+  background-color: #1a1a1a;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .logo-container {
@@ -9,103 +28,69 @@
 }
 
 .logo-img {
-  width: 40px;  /* Set size of the logo */
-  height: auto;
-  margin-right: 10px;  /* Space between logo and text */
+  height: 40px;
+  width: auto;
+  margin-right: 10px;
 }
 
 .logo-text {
-  font-size: 24px;
-  color: white;
+  font-size: 1.5rem;
   font-weight: bold;
 }
 
-.navbar {
-    background-image: linear-gradient(to right, #934205, #1d2228);
-    z-index: 1000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 15px;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .navbar .logo {
-    color: white;
-    font-size: 1.5rem;
-  }
-  
-  .navbar ul {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    list-style: none;
-    gap: 15px;
-    margin-right: 40px;
-  }
-  
-  .navbar li {
-    padding: 0.5rem 1rem;
-    transition: background-color 0.3s ease;
-  }
-  
-  .navbar li a {
-    text-decoration: none;
-    color: white;
-    font-size: 1rem;
-  }
-  
-  .navbar li:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 5px;
-  }
-  
+.navbar ul {
+  display: flex;
+  list-style: none;
+}
+
+.navbar li {
+  margin-left: 20px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.navbar a:hover {
+  color: #4a90e2;
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Responsive navbar */
+@media (max-width: 768px) {
   .menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-    margin-right: 40px;
-
+    display: block;
   }
-  
-  @media (max-width: 768px) {
-    .navbar ul {
-      flex-direction: column;
-      position: absolute;
-      top: 60px;
-      right: 20px;
-      background-image: linear-gradient(to right, #3d1b01, #1d2228);
-      padding: 10px;
-      border-radius: 5px;
-      display: none;
-    }
-  
-    .navbar ul.active {
-      display: flex;
-    }
-  
-    .menu-toggle {
-      display: block;
-    }
+
+  .navbar ul {
+    position: fixed;
+    top: 60px;
+    right: -100%;
+    width: 70%;
+    height: calc(100vh - 60px);
+    background-color: #1a1a1a;
+    flex-direction: column;
+    padding: 20px;
+    transition: right 0.3s ease;
+    z-index: 100;
   }
-  
 
+  .navbar ul.active {
+    right: 0;
+  }
 
-
-
-
-
-
-
-
-
-
-
-
+  .navbar li {
+    margin: 15px 0;
+  }
+}
