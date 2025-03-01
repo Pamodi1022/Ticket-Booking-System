@@ -227,10 +227,10 @@ const ViewDetail = () => {
                   <XAxis dataKey="time" />
                   <YAxis />
                   <Tooltip />
-                  <Line type="monotone" dataKey="sold" stroke="#e74c3c" strokeWidth={2} name="Sold Tickets" />
-                  <Line type="monotone" dataKey="available" stroke="#3498db" strokeWidth={2} name="Available Tickets" />
-                  <Line type="monotone" dataKey="total" stroke="#2ecc71" strokeWidth={2} name="Total Tickets" />
-                  <Line type="monotone" dataKey="initial" stroke="#2eccd1" strokeWidth={2} name="Initial Tickets" />
+                  <Line type="monotone" dataKey="sold" stroke="rgb(136, 2, 2)" strokeWidth={2} name="Sold Tickets" />
+                  <Line type="monotone" dataKey="available" stroke="rgb(2, 107, 32)" strokeWidth={2} name="Available Tickets" />
+                  <Line type="monotone" dataKey="total" stroke="rgb(2, 51, 185)" strokeWidth={2} name="Total Tickets" />
+                  <Line type="monotone" dataKey="initial" stroke="rgb(194, 133, 1)" strokeWidth={2} name="Initial Tickets" />
                 </LineChart>
               </ResponsiveContainer>
             </div>
