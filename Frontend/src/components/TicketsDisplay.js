@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../styles/ViewStyles.css";
+import UserNavbar from "./UserNavbar";
 import Event from '../assets/event1.jpeg';
 
 const ViewDetail = () => {
@@ -110,6 +111,7 @@ useEffect(() => {
   
   return (
       <div>
+        <UserNavbar />
         <div className="tickets-container">
           <div className="event-banner" style={{ backgroundImage: `url(${Event})` }}>
             <h1>Event Ticket Dashboard</h1>
@@ -141,7 +143,7 @@ useEffect(() => {
                 <div className="progress-label">{percentageSold.toFixed(1)}% of total</div>
               </div>
               
-              <div className="ticket-card">
+              {/* <div className="ticket-card">
                 <h2>Sold Tickets</h2>
                 <div className="ticket-number">{soldTickets}</div>
                 <div className="progress-bar">
@@ -151,7 +153,7 @@ useEffect(() => {
                   ></div>
                 </div>
                 <div className="progress-label">{percentageSold.toFixed(1)}% of total</div>
-              </div> 
+              </div> */}
             </div>
             
             <div className="control-panel">
