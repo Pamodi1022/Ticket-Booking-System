@@ -50,6 +50,11 @@ public class TicketController {
         return ticketService.getTotalTickets();
     }
 
+    @GetMapping("/max")
+    public int getMaxCapacity() {
+        return ticketService.getMaxCapacity();
+    }
+
     @GetMapping("/logs")
     public List<String> getLogs() {
         return ticketService.getTicketLogs();
