@@ -193,5 +193,9 @@ public class TicketService {
     public TicketConfigRepository getTicketConfigRepository() {
         return ticketConfigRepository;
     }
+
+    public int getMaxCapacity() {
+        return maxCapacity;
+    }
 }
 
