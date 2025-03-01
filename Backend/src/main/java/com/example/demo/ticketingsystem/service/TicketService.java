@@ -20,10 +20,12 @@ public class TicketService {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private boolean simulationActive = false;
     private int totalTickets;
+    private int initialTotalTickets; // New variable to store the initial total tickets
     private int ticketReleaseRate;
     private int ticketRetrievalRate;
     private int maxCapacity;
     private int availableTickets;
+    private int soldTickets; // Variable to track sold tickets
 
     private final Queue<Ticket> ticketQueue = new LinkedList<>();
     private static final List<String> ticketLogs = new ArrayList<>();
@@ -45,6 +47,8 @@ public class TicketService {
             this.ticketRetrievalRate = configuration.getTicketRetrievalRate();
             this.maxCapacity = configuration.getMaxCapacity();
             this.totalTickets = configuration.getTotalTickets();
+            this.initialTotalTickets = configuration.getTotalTickets(); // Set initial total tickets
+            this.soldTickets = 0; // Initialize soldTickets to 0
             System.out.println("Configuration saved: " + configuration);
         } catch (IOException e) {
             e.printStackTrace();
@@ -131,6 +135,7 @@ public class TicketService {
                 ticket.setAvailable(false);
                 ticketRepository.save(ticket);
                 availableTickets--;
+                soldTickets++; // Increment soldTickets when a ticket is sold
 
                 int customerId = (int) (Math.random() * CUSTOMER_COUNT) + 1;
                 logTicketAction(customerId, ticket.getId(), ticket.getEventName(), ticket.getPrice());
@@ -150,11 +155,10 @@ public class TicketService {
         System.out.println(logMessage);
     }
 
-
     // Log action when a vendor adds a ticket
     private void logTicketAction(String action) {
         String timeStamp = new SimpleDateFormat("  |  yyyy-MM-dd  |  HH:mm:ss").format(new Date());
-        String logMessage = action  + timeStamp;
+        String logMessage = action + timeStamp;
         ticketLogs.add(logMessage);
         System.out.println(logMessage);
     }
@@ -164,8 +168,10 @@ public class TicketService {
         stopSimulation();
 
         // Reset ticket-related variables
-        totalTickets = 0;
+        totalTickets = 0; // Reset totalTickets to initial value
+        initialTotalTickets = 0; // Reset initialTotalTickets
         availableTickets = 0;
+        soldTickets = 0; // Reset soldTickets
         ticketQueue.clear();
 
         // Reset logs
@@ -176,6 +182,23 @@ public class TicketService {
         ticketIdCounter.set(0);
     }
 
+    public void terminateSimulation() {
+        // Stop the simulation first
+        stopSimulation();
+        
+        // Reset all values including initialTotalTickets
+        totalTickets = 0;
+        initialTotalTickets = 0;
+        availableTickets = 0;
+        soldTickets = 0;
+        ticketQueue.clear();
+        ticketLogs.clear();
+        
+        System.out.println("Simulation terminated. All values reset to zero.");
+        
+        // Reset the ticket ID counter
+        ticketIdCounter.set(0);
+    }
 
     public List<String> getTicketLogs() {
         return ticketLogs;
@@ -186,8 +209,18 @@ public class TicketService {
         return availableTickets;
     }
 
-    public int getTotalTickets(){
+    public int getTotalTickets() {
         return totalTickets;
+    }
+
+    // Return initial total tickets count
+    public int getInitialTotalTickets() {
+        return initialTotalTickets;
+    }
+
+    // Return sold tickets count
+    public int getSoldTickets() {
+        return soldTickets;
     }
 
     public TicketConfigRepository getTicketConfigRepository() {
@@ -198,4 +231,3 @@ public class TicketService {
         return maxCapacity;
     }
 }
-
