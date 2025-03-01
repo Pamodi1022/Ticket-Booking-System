@@ -10,11 +10,12 @@ import EventImg2 from "../assets/event2.jpeg"; // Placeholder - replace with act
 import EventImg3 from "../assets/event3.jpeg"; // Placeholder - replace with actual image
 import EventImg4 from "../assets/event4.jpeg"; // Placeholder - replace with actual image
 import EventImg5 from "../assets/event5.jpeg"; // Placeholder - replace with actual image
+import EventImg6 from "../assets/event6.jpeg";
 
 const Home = () => {
   // State for image carousel
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const images = [EventImg1, EventImg2, EventImg3, EventImg4, EventImg5];
+  const images = [EventImg1, EventImg2, EventImg3, EventImg4, EventImg5, EventImg6];
 
   // Auto scroll for images
   useEffect(() => {
