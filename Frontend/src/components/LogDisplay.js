@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import UserNavbar from './UserNavbar';
 import '../styles/LogDisplay.css'; // Import the CSS file
+import { FaTicketAlt, FaUser, FaClock, FaInfoCircle } from 'react-icons/fa'; // Import icons from react-icons
 
 // Status Component
 const Status = () => {
@@ -32,10 +33,23 @@ const LogDisplay = () => {
 
   return (
     <div className="log-display">
-      <h2>Log Display</h2>
-      <ul>
+      <h2>Activity Log</h2>
+      <ul className="log-list">
         {logs.map((log, index) => (
-          <li key={index}>{log}</li>
+          <li key={index} className="log-entry">
+            <div className="log-icon">
+              {log.includes("purchased") ? <FaTicketAlt /> : <FaUser />}
+            </div>
+            <div className="log-content">
+              <span className="log-message">{log}</span>
+              <span className="log-timestamp">
+                <FaClock /> {new Date().toLocaleTimeString()}
+              </span>
+            </div>
+            <button className="view-details-button">
+              <FaInfoCircle /> View Details
+            </button>
+          </li>
         ))}
       </ul>
     </div>
