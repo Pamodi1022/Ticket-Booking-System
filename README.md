@@ -1,5 +1,7 @@
 # Real Time Ticket Management System  🎫
 
+https://github.com/user-attachments/assets/74e4fbe3-c2f9-4d96-b674-8a2666472f4d
+
 ## Introduction
 The Ticket Management System is a multi-threaded application designed to simulate a Ticketing System. Vendors add tickets to a shared ticket pool, while customers retrieve tickets based on a defined rate. The system provides a controlled and synchronized environment for managing ticket distribution efficiently. The project includes a Spring Boot backend and a React.js frontend, providing a comprehensive full-stack solution.
 
