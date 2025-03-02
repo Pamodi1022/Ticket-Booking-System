@@ -22,10 +22,9 @@ const ViewDetail = () => {
     timeout: 5000
   });
 
-  // Define calculateSystemStatus function outside of fetchAllTicketData
   const calculateSystemStatus = (sold, initial, available, maxCapacity) => {
-    const soldPercentage = (sold / initial) * 100;
-    const availablePercentage = (available / maxCapacity) * 100;
+    const soldPercentage = initial === 0 ? 0 : (sold / initial) * 100;
+    const availablePercentage = maxCapacity === 0 ? 0 : (available / maxCapacity) * 100;
 
     const status = (
       (soldPercentage * 0.5) + // Sold tickets contribute 50%
@@ -57,7 +56,6 @@ const ViewDetail = () => {
       setMaxCapacity(max);
       setinitialTotalTickets(initial);
 
-      // Calculate system status using the calculateSystemStatus function
       const status = calculateSystemStatus(sold, initial, available, max);
       setSystemStatus(status);
 
@@ -139,9 +137,9 @@ const ViewDetail = () => {
     }
   };
 
-  const percentageAvailable = Math.min((availableTickets / maxCapacity) * 100, 100);
-  const percentageTotal = Math.min((totalTickets / initialTotalTickets) * 100, 100);
-  const percentageSold = Math.min((soldTickets / initialTotalTickets) * 100, 100);
+  const percentageAvailable = maxCapacity === 0 ? 0 : Math.min((availableTickets / maxCapacity) * 100, 100);
+  const percentageTotal = initialTotalTickets === 0 ? 0 : Math.min((totalTickets / initialTotalTickets) * 100, 100);
+  const percentageSold = initialTotalTickets === 0 ? 0 : Math.min((soldTickets / initialTotalTickets) * 100, 100);
 
   const radius = 60;
   const circumference = 2 * Math.PI * radius;
@@ -164,7 +162,7 @@ const ViewDetail = () => {
               <div className="progress-bar">
                 <div 
                   className="progress" 
-                  style={{ width: `${Math.min(percentageAvailable, 100)}%`, backgroundColor: "#3498db" }}
+                  style={{ width: `${percentageAvailable}%`, backgroundColor: "#3498db" }}
                 ></div>
               </div>
               <div className="progress-label">{percentageAvailable.toFixed(1)}% of capacity</div>
@@ -176,7 +174,7 @@ const ViewDetail = () => {
               <div className="progress-bar">
                 <div 
                   className="progress" 
-                  style={{ width: `${Math.min(percentageTotal, 100)}%`, backgroundColor: "#e74c3c" }}
+                  style={{ width: `${percentageTotal}%`, backgroundColor: "#7c0914" }}
                 ></div>
               </div>
               <div className="progress-label">{percentageTotal.toFixed(1)}% of total</div>
@@ -188,7 +186,7 @@ const ViewDetail = () => {
               <div className="progress-bar">
                 <div 
                   className="progress" 
-                  style={{ width: `${Math.min(percentageSold, 100)}%`, backgroundColor: "#e74c3c" }}
+                  style={{ width: `${percentageSold}%`, backgroundColor: "#110556" }}
                 ></div>
               </div>
               <div className="progress-label">{percentageSold.toFixed(1)}% of sold</div>
@@ -245,7 +243,7 @@ const ViewDetail = () => {
                   <circle 
                     cx="75" cy="75" r={radius} 
                     fill="none" 
-                    stroke="#f0f0f0" 
+                    stroke="#e6e6e6" 
                     strokeWidth="10" 
                   />
                   <circle 
@@ -280,6 +278,9 @@ const ViewDetail = () => {
           </div>
         </div>
       </div>
+      <footer className="footer">
+        <p>&copy; {new Date().getFullYear()} Ticket.lk. All rights reserved.</p>
+      </footer>
     </div>
   );
 };
