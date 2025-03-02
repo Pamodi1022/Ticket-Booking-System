@@ -3,13 +3,20 @@ import axios from "axios";
 import UserNavbar from './UserNavbar';
 import '../styles/LogDisplay.css'; // Import the CSS file
 import { FaTicketAlt, FaUser, FaClock, FaInfoCircle } from 'react-icons/fa'; // Import icons from react-icons
+import Popup from 'reactjs-popup'; // Import reactjs-popup for the popup functionality
+import 'reactjs-popup/dist/index.css'; // Import the default styles for reactjs-popup
 
 // Status Component
-const Status = () => {
+const Status = ({ homePageMode }) => {
+  const formClass = homePageMode ? "config-form-container-compact" : "config-form-container";
+  const backgroundClass = homePageMode ? "" : "config-form-background";
+
   return (
-    <div>
-      <UserNavbar />
-      <LogDisplay />
+    <div className={backgroundClass}>
+      {!homePageMode && <UserNavbar />}
+      <div className={formClass}>
+        <LogDisplay />
+      </div>
     </div>
   );
 };
@@ -31,10 +38,16 @@ const LogDisplay = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Function to handle the "View Details" button click
+  const handleViewDetails = (log) => {
+    console.log("View Details for:", log);
+    // You can add additional logic here if needed
+  };
+
   return (
-    <div className="log-display">
-      <h2>Activity Log</h2>
+    <div className="log-display">    
       <ul className="log-list">
+        {/* <h2>Activity Log</h2> */}
         {logs.map((log, index) => (
           <li key={index} className="log-entry">
             <div className="log-icon">
@@ -42,13 +55,29 @@ const LogDisplay = () => {
             </div>
             <div className="log-content">
               <span className="log-message">{log}</span>
-              <span className="log-timestamp">
-                <FaClock /> {new Date().toLocaleTimeString()}
-              </span>
+              
             </div>
-            <button className="view-details-button">
-              <FaInfoCircle /> View Details
-            </button>
+            {/* Popup for View Details */}
+            <Popup
+              trigger={
+                <button className="view-details-button">
+                  <FaInfoCircle /> View Details
+                </button>
+              }
+              modal
+              nested
+            >
+              {(close) => (
+                <div className="popup-container">
+                  <h3>Ticket Details</h3>
+                  <p><strong>Activity:</strong> {log}</p>
+                  {/* <p><strong>Timestamp:</strong> {new Date(log.timestamp).toLocaleString()}</p> */}
+                  <button onClick={close} className="close-button">
+                    Close
+                  </button>
+                </div>
+              )}
+            </Popup>
           </li>
         ))}
       </ul>
