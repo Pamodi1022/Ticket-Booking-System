@@ -12,37 +12,11 @@ Before running the application, ensure that you have the following installed:
 - Node.js and npm for the React.js frontend.
 - A compatible Integrated Development Environment (IDE) such as IntelliJ IDEA, Eclipse, or Visual Studio Code (optional but recommended).
 
-### How to Build and Run the Application
-
 #### Clone the Repository:
 ```bash
 git clone https://github.com/Pamodi1022/Ticket-Booking-System.git
 cd Ticket-Booking-System
 ```
-
-#### Backend Setup:
-1. Navigate to the `backend` directory:
-   ```bash
-   cd backend
-   ```
-2. Build and run the Spring Boot application:
-   ```bash
-   ./mvnw spring-boot:run
-   ```
-
-#### Frontend Setup:
-1. Navigate to the `frontend` directory:
-   ```bash
-   cd frontend
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the React.js application:
-   ```bash
-   npm start
-   ```
 
 ## Usage Instructions
 
