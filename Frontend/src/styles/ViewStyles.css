@@ -2,8 +2,8 @@ body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f8f9fa;
   color: #333;
+  background: linear-gradient(135deg, #d6e4fa 0%, #d6e4fa 100%);
 }
 .event-banner {
   height: 200px;
@@ -60,9 +60,8 @@ body {
   max-width: 1400px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #fff;
+  background: linear-gradient(135deg, #d6e4fa 0%, #d6e4fa 100%);
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 /* Tickets Display */
 .tickets-display {
@@ -78,8 +77,8 @@ body {
 }
 
 .ticket-card {
-  background-color: #fff;
-  border: 1px solid #ddd;
+  background: #e8f0f9;
+  border: 1px solid #0345a7;
   border-radius: 10px;
   padding: 20px;
   text-align: center;
@@ -94,7 +93,7 @@ body {
 .ticket-card h2 {
   margin-bottom: 10px;
   font-size: 1.5rem;
-  color: #333;
+  color: #252525;
 }
 
 .ticket-number {
@@ -125,8 +124,7 @@ body {
 
 /* Control Panel */
 .control-panel {
-  background-color: #fff;
-  border: 1px solid #ddd;
+  background-color:transparent;
   border-radius: 10px;
   padding: 20px;
   text-align: center;
@@ -165,17 +163,19 @@ body {
 .control-button {
   padding: 10px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 28px;
   font-size: 1rem;
   cursor: pointer;
+  font-weight: bold;
   transition: background-color 0.3s ease;
 }
 
 .control-button.reset {
   background-color: #429cf0;
-  color: white;
+  color: rgb(34, 34, 34);
   border-width: 2px;
   border-style: solid;
+  /* font-weight: 800; */
   border-color: #000000;
 }
 
@@ -210,11 +210,12 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
   margin-top: 20px;
+  background-color: transparent;
 }
 
 .graph-card {
-  background-color: #fff;
-  border: 1px solid #ddd;
+  background: #e8f0f9;
+  border: 1px solid #01295e;
   border-radius: 10px;
   padding: 20px;
   text-align: center;
@@ -229,7 +230,7 @@ body {
 .graph-card h2 {
   margin-bottom: 15px;
   font-size: 1.5rem;
-  color: #333;
+  color: #252525;
 }
 
 .chart-container {
@@ -256,5 +257,18 @@ body {
 
 .summary-value {
   font-weight: bold;
-  color: #2c3e50;
+  color: #252d35;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 20px 0;
+  background-color: #002853;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 14px;
+  color: #f0f1f2;
 }
