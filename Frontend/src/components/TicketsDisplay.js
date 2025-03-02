@@ -88,47 +88,9 @@ const ViewDetail = () => {
     return () => clearInterval(interval);
   }, [soldTickets]);
 
-  const startSimulation = async () => {
-    try {
-      await api.post("/start");
-      setIsSimulationRunning(true);
-      setSalesData([]);
-      setSystemStatus(0);
-    } catch (error) {
-      console.error("Error starting simulation:", error);
-    }
-  };
-
-  const stopSimulation = async () => {
-    try {
-      await api.post("/stop");
-      setIsSimulationRunning(false);
-    } catch (error) {
-      console.error("Error stopping simulation:", error);
-    }
-  };
-
-  const reset = async () => {
-    try {
-      await api.post("/reset");
-      setIsSimulationRunning(false);
-      setSalesData([]);
-      setSystemStatus(0);
-      setinitialTotalTickets(0);
-      navigate("/");
-    } catch (error) {
-      console.error("Error resetting simulation:", error);
-    }
-  };
-
-  const percentageAvailable = Math.min((availableTickets / maxCapacity) * 100, 100);
-  const percentageTotal = Math.min((totalTickets / initialTotalTickets) * 100, 100);
-  const percentageSold = Math.min((soldTickets / initialTotalTickets) * 100, 100);
-
-  const radius = 60;
-  const circumference = 2 * Math.PI * radius;
-  const dashoffset = circumference * (1 - systemStatus / 100);
-  const statusColor = systemStatus >= 80 ? "#4CAF50" : systemStatus >= 50 ? "#FFC107" : "#F44336";
+  const percentageAvailable = maxCapacity === 0 ? 0 : Math.min((availableTickets / maxCapacity) * 100, 100);
+  const percentageTotal = initialTotalTickets === 0 ? 0 : Math.min((totalTickets / initialTotalTickets) * 100, 100);
+  const percentageSold = initialTotalTickets === 0 ? 0 : Math.min((soldTickets / initialTotalTickets) * 100, 100);
   
   return (
     <div>
@@ -145,7 +107,7 @@ const ViewDetail = () => {
               <div className="progress-bar">
                 <div 
                   className="progress" 
-                  style={{ width: `${Math.min(percentageAvailable, 100)}%`, backgroundColor: "#3498db" }}
+                  style={{ width: `${percentageAvailable}%`, backgroundColor: "#3498db" }}
                 ></div>
               </div>
               <div className="progress-label">{percentageAvailable.toFixed(1)}% of capacity</div>
@@ -157,7 +119,7 @@ const ViewDetail = () => {
               <div className="progress-bar">
                 <div 
                   className="progress" 
-                  style={{ width: `${Math.min(percentageTotal, 100)}%`, backgroundColor: "#e74c3c" }}
+                  style={{ width: `${percentageTotal}%`, backgroundColor: "#7c0914" }}
                 ></div>
               </div>
               <div className="progress-label">{percentageTotal.toFixed(1)}% of total</div>
@@ -169,7 +131,7 @@ const ViewDetail = () => {
               <div className="progress-bar">
                 <div 
                   className="progress" 
-                  style={{ width: `${Math.min(percentageSold, 100)}%`, backgroundColor: "#e74c3c" }}
+                  style={{ width: `${percentageSold}%`, backgroundColor: "#110556" }}
                 ></div>
               </div>
               <div className="progress-label">{percentageSold.toFixed(1)}% of sold</div>
