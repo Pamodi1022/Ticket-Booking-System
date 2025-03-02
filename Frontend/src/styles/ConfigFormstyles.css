@@ -9,8 +9,9 @@
 }
 
 .config-form-container {
-  background-color: white;
+  background-color: transparent;
   border-radius: 10px;
+  border: 1.5px solid #013a81;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   padding: 30px;
   width: 100%;
@@ -19,10 +20,11 @@
 
 /* Compact version for home page */
 .config-form-container-compact {
-  background-color: white;
+  background: #e8f0f9;
+  border: 1px solid #01295e;
   border-radius: 8px;
   width: 100%;
-  padding: 15px;
+  padding: 25px;
 }
 
 .config-form-title {
@@ -40,20 +42,22 @@
   display: block;
   margin-bottom: 5px;
   font-size: 1rem;
-  color: #555;
+  color: #4b4b4b;
 }
 
 .config-input-field {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #6a6a6a;
   border-radius: 5px;
   font-size: 1rem;
+  background-color: #f4f8fc;
   transition: border-color 0.3s;
+  margin-bottom: 10px;
 }
 
 .config-input-field:focus {
-  border-color: #4a90e2;
+  border-color: #152231;
   outline: none;
 }
 
@@ -65,24 +69,127 @@
 }
 
 .config-submit-btn {
-  background-color: #4a90e2;
+  background-color: #002853;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 20px;
   padding: 12px 20px;
+  max-width: 250px;
   font-size: 1rem;
   cursor: pointer;
   width: 100%;
   margin-top: 10px;
+  margin-bottom: 20px;
   transition: background-color 0.3s;
+  margin-left: 170px;
 }
 
 .config-submit-btn:hover {
   background-color: #3a7bc8;
 }
 
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 20px 0;
+  background-color: #002853;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 14px;
+  color: #f0f1f2;
+}
+
+/* Media Queries for Responsiveness */
+
+/* Tablets and Small Desktops (768px - 1024px) */
+@media (max-width: 1024px) {
+  .config-form-container {
+    padding: 25px;
+    max-width: 450px;
+  }
+
+  .config-form-title {
+    font-size: 1.6rem;
+  }
+
+  .config-submit-btn {
+    margin-left: 120px;
+  }
+}
+
+/* Tablets (768px and below) */
 @media (max-width: 768px) {
   .config-form-container {
     padding: 20px;
+    max-width: 400px;
+  }
+
+  .config-form-title {
+    font-size: 1.5rem;
+  }
+
+  .config-submit-btn {
+    margin-left: 15px;
+  }
+}
+
+/* Mobile Devices (480px and below) */
+@media (max-width: 480px) {
+  .config-form-background {
+    padding: 15px;
+  }
+
+  .config-form-container {
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  .config-form-title {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+  }
+
+  .config-input-field {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .config-submit-btn {
+    margin-left: 0;
+    max-width: 100%;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+
+  .config-form-group label {
+    font-size: 0.9rem;
+  }
+
+  .config-error-message {
+    font-size: 0.8rem;
+  }
+}
+
+/* Small Mobile Devices (320px and below) */
+@media (max-width: 320px) {
+  .config-form-container {
+    padding: 10px;
+  }
+
+  .config-form-title {
+    font-size: 1.3rem;
+  }
+
+  .config-input-field {
+    padding: 6px;
+    font-size: 0.85rem;
+  }
+
+  .config-submit-btn {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    
   }
 }
