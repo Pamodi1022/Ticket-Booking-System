@@ -69,8 +69,8 @@ const ConfigForm = ({ homePageMode = false }) => {
         setErrors({});
 
         // Navigate to the TicketDisplay page after successful submission
-        if (!homePageMode) {
-          navigate("/TicketDisplay");
+        if (!homePageMode || homePageMode) {
+          navigate("/ViewDetail");
         }
       })
       .catch((error) => console.error("Error submitting configuration:", error));
@@ -152,6 +152,7 @@ const ConfigForm = ({ homePageMode = false }) => {
         </div>
       </div>
     </>
+    
   );
 };
 
