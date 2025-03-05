@@ -20,31 +20,6 @@ git clone https://github.com/Pamodi1022/Ticket-Booking-System.git
 cd Ticket-Booking-System
 ```
 
-## Usage Instructions
-
-### Configuring the System
-Upon starting the backend application, you will be prompted to configure the following parameters via an API or frontend interface:
-
-- **Maximum Capacity for the Ticket Queue**: The maximum number of tickets the pool can hold at any time.
-- **Total Tickets for Each Vendor**: The number of tickets all vendors will contribute.
-- **Ticket Release Rate (in seconds)**: The rate at which each vendor adds tickets to the pool.
-- **Ticket Retrieval Rate (in seconds)**: The rate at which customers retrieve tickets from the pool.
-
-### Starting the System
-Once the configuration is complete, the system will:
-
-1. Start vendor threads in the backend to add tickets to the pool at the specified release rate.
-2. Start customer threads in the backend to retrieve tickets at the defined retrieval rate.
-
-The frontend application will allow users to view and interact with the ticket management system in real time.
-
-## Explanation of UI Controls
-The system includes a web-based user interface built with React.js. Users can:
-
-- Configure Total tickets and Available tickets.
-- View the log of the ticket pool in real time.
-- Monitor vendor and customer activity.
-
 ## Features
 - Full-stack implementation with Spring Boot backend and React.js frontend.
 - Multi-threaded simulation of vendors and customers interacting with a shared ticket pool.
