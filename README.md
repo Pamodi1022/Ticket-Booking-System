@@ -1,32 +1,76 @@
-# Real Time Ticket Management System  🎫
+# 🎟️ Real Time Ticket Management System  
 
 https://github.com/user-attachments/assets/346a1c8b-95ec-470e-bb3d-01a6c0440c7c
 
-## Introduction
-The Ticket Management System is a multi-threaded application designed to simulate a Ticketing System. Vendors add tickets to a shared ticket pool, while customers retrieve tickets based on a defined rate. The system provides a controlled and synchronized environment for managing ticket distribution efficiently. The project includes a Spring Boot backend and a React.js frontend, providing a comprehensive full-stack solution.
+🚀 Overview
+The Ticket Management System is a high-performance, multi-threaded application designed to simulate a real-time ticketing platform. Vendors release tickets into a synchronized pool, while customers retrieve them at a controlled rate. This system ensures smooth and efficient ticket distribution with real-time updates.
 
-## Setup Instructions
+🔹 Backend: Spring Boot
 
-### Prerequisites
-Before running the application, ensure that you have the following installed:
+🔹 Frontend: React.js
 
-- Java Development Kit (JDK) version 8 or later.
-- Node.js and npm for the React.js frontend.
-- A compatible Integrated Development Environment (IDE) such as IntelliJ IDEA, Eclipse, or Visual Studio Code (optional but recommended).
+🔹 Concurrency Handling: Multi-threading with synchronized ticket pools
 
-#### Clone the Repository:
-```bash
-git clone https://github.com/Pamodi1022/Ticket-Booking-System.git
-cd Ticket-Booking-System
-```
 
-## Features
-- Full-stack implementation with Spring Boot backend and React.js frontend.
-- Multi-threaded simulation of vendors and customers interacting with a shared ticket pool.
-- Synchronized ticket pool.
-- Configurable ticket queue size, ticket release rate, and retrieval rate.
-- Error handling to ensure valid user input.
-- Real-time updates via the React.js frontend and websockets.
+
+
+🛠️ Setup & Installation
+
+✅ Prerequisites
+
+Before running the application, ensure you have the following installed:
+
+📌 Java Development Kit (JDK) 8 or later
+
+📌 Node.js and npm for the React.js frontend
+
+📌 Integrated Development Environment (IDE) 
+
+
+
+
+✨ Features
+
+✔ Full-Stack Integration – Spring Boot backend & React.js frontend.
+
+✔ Multi-Threaded Simulation – Vendors and customers interact in a synchronized environment.
+
+✔ Real-Time Updates – WebSockets ensure instant data synchronization.
+
+✔ Configurable Ticket Flow – Customize queue size, release rate, and retrieval rate.
+
+✔ Error Handling – Ensures smooth user interactions and prevents invalid operations.
+
+✔ User-Friendly Interface – Responsive UI for a seamless experience.
+
+
+
+
+🔍 How It Works
+
+🎟️ Vendors
+
+➡ Add tickets to a shared pool at a configurable rate.
+
+➡ Control ticket release frequency.
+
+
+
+
+🏷️ Customers
+
+➡ Retrieve tickets based on the defined retrieval rate.
+
+➡ Ensure fair ticket distribution with synchronized access.
+
+
+
+
+🔄 Synchronization
+
+➡ The ticket pool is synchronized to prevent race conditions.
+
+➡ Ensures data consistency and prevents conflicts.
 
 
 
