@@ -13,7 +13,6 @@ The Ticket Management System is a high-performance, multi-threaded application d
 
 
 
-
 🛠️ Setup & Installation
 
 ✅ Prerequisites
@@ -25,7 +24,6 @@ Before running the application, ensure you have the following installed:
 📌 Node.js and npm for the React.js frontend
 
 📌 Integrated Development Environment (IDE) 
-
 
 
 
@@ -56,13 +54,11 @@ Before running the application, ensure you have the following installed:
 
 
 
-
 🏷️ Customers
 
 ➡ Retrieve tickets based on the defined retrieval rate.
 
 ➡ Ensure fair ticket distribution with synchronized access.
-
 
 
 
